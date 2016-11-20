@@ -11,13 +11,16 @@
 	<script type="text/babel">
 		var Component = React.createClass({
 			render: function() {
-				return <div>A component</div>
+				return <div>
+							<h2>{this.props.text}</h2>
+							<p>{this.props.children}</p>
+						</div>
 			}
 		});
 		React.render(<div>
-						<Component />
-						<Component />
-						<Component />
+						<Component text="Hello"/>
+						<Component text="Hi">Hey there</Component>
+						<Component text="Cheers"/>
 					 </div>, document.getElementById('container'));
 	</script>
 </body>
