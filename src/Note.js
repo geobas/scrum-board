@@ -1,3 +1,5 @@
+"use strict";
+
 var Note = React.createClass({
     getInitialState: function() {
         return {editing: false}
