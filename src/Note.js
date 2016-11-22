@@ -1,6 +1,6 @@
 "use strict";
 
-var Note = React.createClass({
+window.Note = React.createClass({
     getInitialState: function() {
         return {editing: false}
     },
@@ -8,6 +8,8 @@ var Note = React.createClass({
         this.setState({editing: true});
     },
     save: function() {
+    	var value = this.refs.newText.getDOMNode().value;
+    	// alert(value);
         this.setState({editing: false});
     },
     remove: function() {
@@ -42,4 +44,4 @@ var Note = React.createClass({
     }
 });
 
-React.render(<Note>Hello World</Note>, document.getElementById('react-container'));
+// React.render(<Note>Hello World</Note>, document.getElementById('react-container'));
