@@ -4,20 +4,32 @@ window.Note = React.createClass({
     getInitialState: function() {
         return {editing: false}
     },
+    componentWillMount: function() {
+        this.style = {
+            right: this.randomBetween(0, window.innerWidth - 150) + 'px',
+            top: this.randomBetween(0, window.innerHeight - 150) + 'px',
+            transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
+        };
+    },
+    randomBetween: function(min, max) {
+        return (min + Math.ceil(Math.random() * max));
+    },
     edit: function() {
         this.setState({editing: true});
     },
     save: function() {
-    	var value = this.refs.newText.getDOMNode().value;
+    	// var value = this.refs.newText.getDOMNode().value;
     	// alert(value);
+        this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index); // trigger 'onChange' event
         this.setState({editing: false});
     },
     remove: function() {
-        alert('removing note');
+        // alert('removing note');
+        this.props.onRemove(this.props.index); // trigger 'onRemove' event
     },
     renderDisplay: function() {
         return (
-            <div className="note">
+            <div className="note" style={this.style}>
                 <p>{this.props.children}</p>
                 <span>
                     <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil" />
