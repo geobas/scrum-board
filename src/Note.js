@@ -11,6 +11,9 @@ window.Note = React.createClass({
             transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
         };
     },
+    componentDidMount: function() {
+        $(this.getDOMNode()).draggable();
+    },
     randomBetween: function(min, max) {
         return (min + Math.ceil(Math.random() * max));
     },
