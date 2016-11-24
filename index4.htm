@@ -19,6 +19,14 @@
 	    var Box = React.createClass( {
 	        getDefaultProps: function() {
 	            return {
+	                // backgroundColor: "blue",
+	                // height: 200,
+	                // width: 200
+	                colorIndex: -1
+	            }
+	        },
+	        getInitialState: function() {
+	            return {
 	                backgroundColor: "blue",
 	                height: 200,
 	                width: 200
@@ -30,18 +38,28 @@
 	        componentDidMount: function() {
 	            alert('component has mounted');
 	        },
+	        componentWillReceiveProps: function(nextProps) {
+	        	console.log("colorIndex: " + nextProps.colorIndex);
+	            var color = this.props.colors.split(',')[nextProps.colorIndex];
+	            if (!color) {this.setProps({colorIndex:0})}
+	            this.setState({backgroundColor: color});
+	        },
+	        update: function() {
+	            this.setProps({colorIndex: this.props.colorIndex + 1});
+	        },
 	        render: function() {
-	            return <div style={this.props}></div>;
+	            // return <div style={this.props}></div>;
+	            return <div style={this.state} onClick={this.update}></div>;
 	        }
 	    });
 
-	    React.render(<Box />, document.body);
+	    React.render(<Box colors="Red,DarkMagenta,Salmon,Chartreuse" />, document.body);
 
-	    var getRidOfBox = document.getElementsByTagName('div')[0];
-	    getRidOfBox.onclick = function() {
-	        React.unmountComponentAtNode(document.body);
-	        alert("component is unmounted");
-	    }
+	    // var getRidOfBox = document.getElementsByTagName('div')[0];
+	    // getRidOfBox.onclick = function() {
+	    //     React.unmountComponentAtNode(document.body);
+	    //     alert("component is unmounted");
+	    // }
 
 	</script>
 </body>
