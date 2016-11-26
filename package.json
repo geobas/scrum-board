@@ -22,8 +22,11 @@
     "author": "Eve Porcello",
     "license": "MIT",
     "devDependencies": {
-        "babel-cli": "^6.4.0",
-        "babel-preset-react": "^6.3.13"
+        "react": "0.13.3",
+        "grunt": "~0.4.2",
+        "grunt-react": "0.12.3",
+        "grunt-browserify ": "latest",
+        "grunt-contrib-watch": "latest"
     },
     "dependencies": {
         "httpster": "^1.0.1"

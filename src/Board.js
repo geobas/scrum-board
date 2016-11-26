@@ -1,6 +1,9 @@
 "use strict";
 
-var Board = React.createClass({
+var React = require('react');
+var Note = require('./Note');
+
+module.exports = React.createClass({
     getInitialState: function() {
         return {
             // notes: [
@@ -58,11 +61,11 @@ var Board = React.createClass({
     },
     eachNote: function(note, i) {
         return (
-                <window.Note key={note.id}
+                <Note key={note.id}
                     index={i}
                     onChange={this.update}
                     onRemove={this.remove}
-                >{note.note}</window.Note>
+                >{note.note}</Note>
             );
     },
     render: function() {
@@ -78,5 +81,3 @@ var Board = React.createClass({
                </div>;
     }
 });
-
-React.render(<Board count={10}/>, document.getElementById('react-container'));

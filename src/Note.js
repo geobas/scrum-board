@@ -1,6 +1,8 @@
 "use strict";
 
-window.Note = React.createClass({
+var React = require('react');
+
+module.exports = React.createClass({
     getInitialState: function() {
         return {editing: false}
     },
@@ -58,5 +60,3 @@ window.Note = React.createClass({
         }
     }
 });
-
-// React.render(<Note>Hello World</Note>, document.getElementById('react-container'));
