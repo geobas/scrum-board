@@ -6,5 +6,5 @@
 
 * Install [Node](https://nodejs.org)
 * Type `npm install` the first time to get all dependencies
-* Type `grunt` to run browserify and build the application
+* Type `grunt build` to run browserify and build the application
 * Type `npm start` to start the server and launch the browser
