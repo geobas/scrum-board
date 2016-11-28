@@ -21,12 +21,11 @@ export default class Board extends React.Component {
     componentWillMount() {
         var self = this;
         if (this.props.count > 0) {
-            $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" +
-                this.props.count + "&start-with-lorem=1&callback=?", function(results) {
-                    results[0].split('. ').forEach(function(sentence){
-                        self.add(sentence.substring(0,40));
-                    });
+            $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function (results) {
+                results[0].split('. ').forEach(function (sentence) {
+                    self.add(sentence.substring(0, 40));
                 });
+            });
         }
     }
 
@@ -37,30 +36,32 @@ export default class Board extends React.Component {
             id: this.nextId(),
             note: text
         });
-        this.setState({notes: arr});
+        this.setState({ notes: arr });
     }
 
     update(newText, i) {
         var arr = this.state.notes;
         // arr[i] = newText;
         arr[i].note = newText;
-        this.setState({notes:arr});
+        this.setState({ notes: arr });
     }
 
     remove(i) {
         var arr = this.state.notes;
         arr.splice(i, 1);
-        this.setState({notes: arr});
+        this.setState({ notes: arr });
     }
 
     eachNote(note, i) {
-        return (
-                <Note key={note.id}
-                    index={i}
-                    onChange={this.update}
-                    onRemove={this.remove}
-                >{note.note}</Note>
-            );
+        return React.createElement(
+            Note,
+            { key: note.id,
+                index: i,
+                onChange: this.update,
+                onRemove: this.remove
+            },
+            note.note
+        );
     }
 
     render() {
@@ -70,16 +71,18 @@ export default class Board extends React.Component {
         //                 return <window.Note key={i}>{note}</window.Note>
         //             })}
         //        </div>;
-        return <div className="board">
-                    {this.state.notes.map(this.eachNote)}
-                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind("null", "New Note")}/>
-               </div>;
+        return React.createElement(
+            'div',
+            { className: 'board' },
+            this.state.notes.map(this.eachNote),
+            React.createElement('button', { className: 'btn btn-sm btn-success glyphicon glyphicon-plus', onClick: this.add.bind("null", "New Note") })
+        );
     }
 };
 
 Board.propTypes = {
-    count: function(props, propName) {
-        if (typeof props[propName] !== "number"){
+    count: function (props, propName) {
+        if (typeof props[propName] !== "number") {
             return new Error('The count property must be a number');
         }
         if (props[propName] > 100) {
@@ -88,4 +91,4 @@ Board.propTypes = {
     }
 };
 
-React.render(<Board count={10}/>, document.getElementById('react-container'));
+React.render(React.createElement(Board, { count: 10 }), document.getElementById('react-container'));
