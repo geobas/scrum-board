@@ -4,14 +4,8 @@
     "description": "A React application",
     "main": "Board.js",
     "scripts": {
-        "build": "babel src -d build",
         "start": "xdg-open http://localhost:3000/board.htm & httpster -p 3000",
         "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "babel": {
-        "presets": [
-          "react"
-      ]
     },
     "keywords": [
         "react",
@@ -21,14 +15,14 @@
     ],
     "author": "Eve Porcello",
     "license": "MIT",
-    "devDependencies": {
+    "dependencies": {
         "react": "0.13.3",
+        "httpster": "^1.0.1"
+    },
+    "devDependencies": {
         "grunt": "~0.4.2",
         "grunt-react": "0.12.3",
         "grunt-browserify ": "latest",
         "grunt-contrib-watch": "latest"
-    },
-    "dependencies": {
-        "httpster": "^1.0.1"
     }
 }
