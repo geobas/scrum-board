@@ -1,6 +1,6 @@
-import React from 'react';
+import React,{Component} from 'react';
 
-export class Note extends React.Component {
+export default class Note extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -70,5 +70,3 @@ export class Note extends React.Component {
         }
     }
 };
-
-export { Note as default };

@@ -1,7 +1,7 @@
-import React from 'react';
-import Note from './Note_browserified.js';
+import React,{Component} from 'react';
+import Note from './Note';
 
-export default class Board extends React.Component {
+export default class Board extends Component {
     constructor() {
         super();
         this.state = {
@@ -87,5 +87,3 @@ Board.propTypes = {
         }
     }
 };
-
-React.render(<Board count={10}/>, document.getElementById('react-container'));
