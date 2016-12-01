@@ -18,13 +18,28 @@ module.exports = function(grunt) {
                 files: 'src/*.js',
                 tasks: ['browserify']
             }
+        },
+
+        targethtml: {
+            dev: {
+                files: {
+                    'board_dev.htm': 'src/board.htm',
+                }
+            },
+            prod: {
+                files: {
+                    'board.htm': 'src/board.htm',
+                }
+            }
         }
 
     });
 
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-targethtml');
 
-    grunt.registerTask('build', ['browserify']);
+    grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
+    grunt.registerTask('build', ['browserify', 'targethtml:prod']);
     grunt.registerTask('default', ['watch']);
 };
