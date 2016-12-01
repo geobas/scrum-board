@@ -2,6 +2,14 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        availabletasks: {
+            tasks: {
+                options: {
+                    showTasks: ['user']
+                }
+            }
+        },
+
         browserify: {
             options: {
                 transform: [ ["babelify", { presets: ["es2015", "react"] }] ]
@@ -61,6 +69,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-targethtml');
     grunt.loadNpmTasks('grunt-browser-sync');
+    grunt.loadNpmTasks('grunt-available-tasks');
 
     grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
     grunt.registerTask('build:prod', ['browserify', 'targethtml:prod']);
