@@ -23,7 +23,8 @@
     "babelify": "latest",
     "babel-preset-react": "latest",
     "babel-preset-es2015": "latest",
-    "grunt-targethtml": "~0.2.6"
+    "grunt-targethtml": "~0.2.6",
+    "grunt-browser-sync": "~2.2.0"
   },
   "dependencies": {
     "httpster": "^1.0.1"
