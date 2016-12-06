@@ -2,6 +2,8 @@ import React from 'react';
 import Note from '../Note.js';
 import TestUtils from 'react-addons-test-utils';
 import expect, { createSpy, spyOn, isSpy } from 'expect';
+import $ from 'jquery-browserify';
+import 'jquery-ui-browserify';
 
 describe('Note', function () {
 

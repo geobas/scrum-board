@@ -21,7 +21,7 @@ export default class Note extends Component {
     }
 
     componentDidMount() {
-        // $(React.findDOMNode(this)).draggable();
+        $(React.findDOMNode(this)).draggable();
     }
 
     randomBetween(min, max) {

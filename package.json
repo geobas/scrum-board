@@ -16,7 +16,6 @@
     "author": "Geo Bas",
     "license": "MIT",
     "devDependencies": {
-        "react": "0.14.8",
         "grunt": "~0.4.2",
         "grunt-browserify": "latest",
         "grunt-contrib-watch": "latest",
@@ -35,9 +34,13 @@
         "karma-mocha-reporter": "^2.0.0",
         "mocha": "^2.2.4",
         "expect": "^1.6.0",
-        "react-addons-test-utils": "^0.14.0"
+        "react-addons-test-utils": "^0.14.0",
+        "jquery": "~1.11.1",
+        "jquery-browserify": "~1.8.1",
+        "jquery-ui-browserify": "~1.11.0-pre-seelio"
     },
     "dependencies": {
+        "react": "0.14.8",
         "httpster": "^1.0.1"
     }
 }
