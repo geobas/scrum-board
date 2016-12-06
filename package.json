@@ -1,33 +1,43 @@
 {
-  "name": "bulletin-board",
-  "version": "1.0.0",
-  "description": "A React application",
-  "main": "App.js",
-  "scripts": {
-    "start": "xdg-open http://localhost:3000/board.htm & httpster -p 3000",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "react",
-    "javascript",
-    "bulletin",
-    "board"
-  ],
-  "author": "Geo Bas",
-  "license": "MIT",
-  "devDependencies": {
-    "react": "0.13.3",
-    "grunt": "~0.4.2",
-    "grunt-browserify": "latest",
-    "grunt-contrib-watch": "latest",
-    "babelify": "latest",
-    "babel-preset-react": "latest",
-    "babel-preset-es2015": "latest",
-    "grunt-targethtml": "~0.2.6",
-    "grunt-browser-sync": "~2.2.0",
-    "grunt-available-tasks": "~0.6.3"
-  },
-  "dependencies": {
-    "httpster": "^1.0.1"
-  }
+    "name": "bulletin-board",
+    "version": "1.0.0",
+    "description": "A React application",
+    "main": "App.js",
+    "scripts": {
+        "start": "xdg-open http://localhost:3000/board.htm & httpster -p 3000",
+        "test": "karma start"
+    },
+    "keywords": [
+        "react",
+        "javascript",
+        "bulletin",
+        "board"
+    ],
+    "author": "Geo Bas",
+    "license": "MIT",
+    "devDependencies": {
+        "react": "0.14.8",
+        "grunt": "~0.4.2",
+        "grunt-browserify": "latest",
+        "grunt-contrib-watch": "latest",
+        "babelify": "latest",
+        "babel-preset-react": "latest",
+        "babel-preset-es2015": "latest",
+        "grunt-targethtml": "~0.2.6",
+        "grunt-browser-sync": "~2.2.0",
+        "grunt-available-tasks": "~0.6.3",
+        "karma": "^0.13.22",
+        "karma-chrome-launcher": "^0.1.10",
+        "karma-firefox-launcher": "~1.0.0",
+        "karma-cli": "0.0.4",
+        "karma-mocha": "^0.1.10",
+        "karma-browserify": "^5.0.0",
+        "karma-mocha-reporter": "^2.0.0",
+        "mocha": "^2.2.4",
+        "expect": "^1.6.0",
+        "react-addons-test-utils": "^0.14.0"
+    },
+    "dependencies": {
+        "httpster": "^1.0.1"
+    }
 }
