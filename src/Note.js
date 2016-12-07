@@ -48,8 +48,8 @@ export default class Note extends Component {
         return <div className="note" style={this.style}>
                 <p>{this.props.children}</p>
                 <span>
-                    <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil" />
-                    <button onClick={this.remove} className="btn btn-danger glyphicon glyphicon-trash" />
+                    <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil edit" />
+                    <button onClick={this.remove} className="btn btn-danger glyphicon glyphicon-trash remove" />
                 </span>
             </div>;
     }
@@ -57,7 +57,7 @@ export default class Note extends Component {
     renderForm() {
         return <div className="note" style={this.style}>
                 <textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
-                <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
+                <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk save" />
             </div>;
     }
 
