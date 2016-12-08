@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Note from '../Note.js';
 import TestUtils from 'react-addons-test-utils';
 import expect, { createSpy, spyOn, isSpy } from 'expect';
@@ -51,7 +52,7 @@ describe('Note', function () {
         );
         TestUtils.Simulate.click(btn);
 
-        expect(note.refs.newText.getDOMNode().value).toEqual("I am a note!");
+        expect(ReactDOM.findDOMNode(note.refs.newText).value).toEqual("I am a note!");
         expect(note.state.editing).toBe(true);
     });
 
