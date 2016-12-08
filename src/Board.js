@@ -2,10 +2,14 @@ import React,{Component} from 'react';
 import Note from './Note';
 
 export default class Board extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            notes: []
+            notes: [
+                // {id:1 , note:"Note 1"},
+                // {id:2 , note:"Note 2"},
+                // {id:3 , note:"Note 3"}
+            ]
         };
         this.add = this.add.bind(this);
         this.update = this.update.bind(this);
