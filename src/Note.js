@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import ReactDOM from 'react-dom';
 
 export default class Note extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class Note extends Component {
     }
 
     componentDidMount() {
-        $(React.findDOMNode(this)).draggable();
+        $(ReactDOM.findDOMNode(this)).draggable();
     }
 
     randomBetween(min, max) {
@@ -35,7 +36,7 @@ export default class Note extends Component {
     save() {
         // var value = this.refs.newText.getDOMNode().value;
         // alert(value);
-        this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index); // trigger 'onChange' event
+        this.props.onChange(ReactDOM.findDOMNode(this.refs.newText).value, this.props.index); // trigger 'onChange' event
         this.setState({editing: false});
     }
 
