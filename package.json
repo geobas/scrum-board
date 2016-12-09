@@ -7,14 +7,19 @@
         "start": "xdg-open http://localhost:3000/board.htm & httpster -p 3000",
         "test": "karma start"
     },
+    "author": "Geo Bas",
+    "license": "MIT",    
+    "homepage": "https://github.com/geobas/react-sandbox/tree/ES6+browserify",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/geobas/react-sandbox/tree/ES6+browserify"
+    },    
     "keywords": [
         "react",
         "javascript",
         "bulletin",
         "board"
     ],
-    "author": "Geo Bas",
-    "license": "MIT",
     "devDependencies": {
         "grunt": "~0.4.2",
         "grunt-browserify": "latest",
