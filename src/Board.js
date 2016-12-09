@@ -76,7 +76,7 @@ export default class Board extends Component {
         //        </div>;
         return <div className="board">
                     {this.state.notes.map(this.eachNote)}
-                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind("null", "New Note")}/>
+                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note")}/>
                </div>;
     }
 };

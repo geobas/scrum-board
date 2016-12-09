@@ -56,38 +56,12 @@ describe('Note', function () {
         expect(note.state.editing).toBe(true);
     });
 
-    // it("saves a note", function () {
-    //     var note = TestUtils.renderIntoDocument(
-    //         <Note>{defaultValue}</Note>
-    //     );
+    it("generates a random number", function () {
+        var note = TestUtils.renderIntoDocument(
+            <Note></Note>
+        );
 
-    //     var btnEdit = TestUtils.findRenderedDOMComponentWithClass(
-    //         note, 'edit'
-    //     );
-    //     TestUtils.Simulate.click(btnEdit);
-
-    //     var btnSave = TestUtils.findRenderedDOMComponentWithClass(
-    //         note, 'save'
-    //     );
-    //     TestUtils.Simulate.click(btnSave);
-
-    //     var value = note.refs.newText.getDOMNode().value;
-    //     expect(note.props.onChange).toEqual(value);
-    // });
-
-    // it("removes a note", function () {
-    //     var note = TestUtils.renderIntoDocument(
-    //         <Note>{defaultValue}</Note>
-    //     );
-
-    //     var btn = TestUtils.findRenderedDOMComponentWithClass(
-    //         note, 'remove'
-    //     );
-    //     TestUtils.Simulate.click(btn);
-
-    //     var index = note.props.index;
-
-    //     expect(note.props.onRemove).toEqual(index);
-    // });
+        expect(note.randomBetween(1,2)).toBeMoreThan(1).toBeLessThanOrEqualTo(3);
+    });
 
 });

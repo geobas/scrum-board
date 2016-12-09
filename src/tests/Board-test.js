@@ -37,6 +37,7 @@ describe('Board', function () {
 
 		expect(notes).toBeAn('array');
 		expect(notes.length).toBe(2);
+        expect(board.state.notes.length).toEqual(2);
 		expect(notes[0].props.children).toEqual('Note 1');
 		expect(notes[1].props.children).toEqual('Note 2');
     });
@@ -64,8 +65,63 @@ describe('Board', function () {
         );
 
         expect(notes.length).toBe(3);
+        expect(board.state.notes.length).toEqual(3);
         expect(notes[1].props.children).toEqual('A new note 2');
         expect(notes[1].props.index).toEqual(1);
     });
 
+    it('remove Notes', function() {
+        var BoardTest = class extends Board {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    notes: [
+                        {id:1 , note:'Note 1'},
+                        {id:2 , note:'Note 2'}
+                    ]
+                };
+            }
+        };
+
+        var board = TestUtils.renderIntoDocument(
+            <BoardTest />
+        );
+
+        var notes = TestUtils.scryRenderedComponentsWithType(
+            board, Note
+        );
+
+        var lengthBefore = notes.length;
+
+        board.remove(1);
+        expect(board.state.notes.length).toEqual(lengthBefore - 1);
+        board.remove(0);
+        expect(board.state.notes.length).toEqual(0);
+    });
+
+    it('updates a Note', function() {
+        var BoardTest = class extends Board {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    notes: [
+                        {id:1 , note:'Note 1'},
+                        {id:2 , note:'Note 2'}
+                    ]
+                };
+            }
+        };
+
+        var board = TestUtils.renderIntoDocument(
+            <BoardTest />
+        );
+
+        var notes = TestUtils.scryRenderedComponentsWithType(
+            board, Note
+        );
+
+        board.update('A new Note 2', 1);
+        expect(notes[1].props.children).toNotEqual('Note 2');
+        expect(notes[1].props.children).toEqual('A new Note 2');
+    });
 });
