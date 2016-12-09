@@ -17,7 +17,7 @@
 * `npm test`
 
 ### List locally installed npm packages
-* `npm list -o --depth=0`
+* `npm list --depth=0 "$@" 2>/dev/null`
 
 ### List Grunt tasks
-* `grunt availabletasks`
+* `grunt list`
