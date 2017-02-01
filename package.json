@@ -4,6 +4,7 @@
     "description": "A React application",
     "main": "App.js",
     "scripts": {
+        "postinstall": "grunt heroku",
         "start": "xdg-open http://localhost:3000/board.htm & httpster -p 3000",
         "test": "karma start"
     },
