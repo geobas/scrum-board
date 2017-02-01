@@ -4,7 +4,6 @@
     "description": "A React application",
     "main": "App.js",
     "scripts": {
-        "postinstall": "grunt heroku",
         "start": "xdg-open http://localhost:3000/board.htm & httpster -p 3000",
         "test": "karma start"
     },
@@ -21,7 +20,10 @@
         "bulletin",
         "board"
     ],
-    "devDependencies": {
+    "dependencies": {
+        "react": "15.4.1",
+        "react-dom": "15.4.1",
+        "httpster": "^1.0.1",
         "grunt": "~0.4.2",
         "grunt-browserify": "latest",
         "grunt-contrib-watch": "latest",
@@ -44,10 +46,5 @@
         "jquery": "~1.11.1",
         "jquery-browserify": "~1.8.1",
         "jquery-ui-browserify": "~1.11.0-pre-seelio"
-    },
-    "dependencies": {
-        "react": "15.4.1",
-        "react-dom": "15.4.1",
-        "httpster": "^1.0.1"
     }
 }
