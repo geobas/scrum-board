@@ -73,6 +73,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
     grunt.registerTask('build:prod', ['browserify', 'targethtml:prod']);
+    grunt.registerTask('heroku', ['browserify', 'targethtml:prod']);
     grunt.registerTask('list', ['availabletasks']);
     grunt.registerTask('default', ['browserSync', 'watch']);
 };
