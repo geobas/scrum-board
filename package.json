@@ -21,10 +21,7 @@
         "bulletin",
         "board"
     ],
-    "dependencies": {
-        "react": "15.4.1",
-        "react-dom": "15.4.1",
-        "httpster": "^1.0.1",
+    "devDependencies": {
         "grunt": "~0.4.2",
         "grunt-cli": "~0.1.11",
         "grunt-browserify": "latest",
@@ -48,5 +45,10 @@
         "jquery": "~1.11.1",
         "jquery-browserify": "~1.8.1",
         "jquery-ui-browserify": "~1.11.0-pre-seelio"
+    },
+    "dependencies": {
+        "react": "15.4.1",
+        "react-dom": "15.4.1",
+        "httpster": "^1.0.1"
     }
 }
