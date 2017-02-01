@@ -26,6 +26,7 @@
         "react-dom": "15.4.1",
         "httpster": "^1.0.1",
         "grunt": "~0.4.2",
+        "grunt-cli": "~0.1.11",
         "grunt-browserify": "latest",
         "grunt-contrib-watch": "latest",
         "babelify": "latest",
