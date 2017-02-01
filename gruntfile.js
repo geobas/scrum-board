@@ -41,6 +41,11 @@ module.exports = function(grunt) {
                 files: {
                     'board.htm': 'src/board.htm',
                 }
+            },
+            heroku: {
+                files: {
+                    'index.htm': 'src/board.htm',
+                }
             }
         },
 
@@ -73,7 +78,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
     grunt.registerTask('build:prod', ['browserify', 'targethtml:prod']);
-    grunt.registerTask('heroku', ['browserify', 'targethtml:prod']);
+    grunt.registerTask('heroku', ['browserify', 'targethtml:heroku']);
     grunt.registerTask('list', ['availabletasks']);
     grunt.registerTask('default', ['browserSync', 'watch']);
 };
