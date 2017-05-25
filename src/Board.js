@@ -75,7 +75,23 @@ export default class Board extends Component {
         //             })}
         //        </div>;
         return <div className="board">
-                    {this.state.notes.map(this.eachNote)}
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-sm-3 text-center column toDo">
+                                <h1>To Do</h1>
+                            </div>
+                            <div className="col-sm-3 text-center column inProgress">
+                                <h1>In Progress</h1>
+                            </div>
+                            <div className="col-sm-3 text-center column Testing">
+                                <h1>Testing</h1>
+                            </div>
+                            <div className="col-sm-3 text-center column Done">
+                                <h1>Done</h1>
+                            </div>
+                            {this.state.notes.map(this.eachNote)}
+                        </div>
+                    </div>
                     <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note")}/>
                </div>;
     }

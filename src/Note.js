@@ -8,6 +8,8 @@ export default class Note extends Component {
             editing: false
         };
         this.renderDisplay = this.renderDisplay.bind(this);
+        this.changeColorBlue = this.changeColorBlue.bind(this);
+        this.changeColorGreen = this.changeColorGreen.bind(this);
         this.edit = this.edit.bind(this);
         this.remove = this.remove.bind(this);
         this.save = this.save.bind(this);
@@ -27,6 +29,14 @@ export default class Note extends Component {
 
     randomBetween(min, max) {
         return (min + Math.ceil(Math.random() * max));
+    }
+
+    changeColorBlue() {
+        $(ReactDOM.findDOMNode(this)).removeClass('green-note').toggleClass('blue-note');
+    }
+
+    changeColorGreen() {
+        $(ReactDOM.findDOMNode(this)).removeClass('blue-note').toggleClass('green-note');
     }
 
     edit() {
@@ -49,6 +59,8 @@ export default class Note extends Component {
         return <div className="note" style={this.style}>
                 <p>{this.props.children}</p>
                 <span>
+                    <button onClick={this.changeColorBlue} className="btn btn-info glyphicon glyphicon-text-background change-color-blue" />
+                    <button onClick={this.changeColorGreen} className="btn btn-success glyphicon glyphicon-text-background change-color-green" />
                     <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil edit" />
                     <button onClick={this.remove} className="btn btn-danger glyphicon glyphicon-trash remove" />
                 </span>

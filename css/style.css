@@ -24,12 +24,12 @@ div.board {
     background: -ms-radial-gradient(center, ellipse cover, #eab92d 57%, #c79810 99%);
     background: radial-gradient(ellipse at center, #eab92d 57%, #c79810 99%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eab92d', endColorstr='#c79810', GradientType=1);
-
+    padding:20px;
 }
 
 div.note {
-    height: 150px;
-    width: 150px;
+    height: 180px;
+    width: 180px;
     background-color: yellow;
     margin: 2px 0;
     position: absolute;
@@ -46,6 +46,10 @@ div.note p {
     font-size: 22px;
     padding: 5px;
     font-family: "Shadows Into Light", Arial;
+}
+
+div.note:hover {
+    cursor: grab;
 }
 
 div.note:hover > span {
@@ -69,8 +73,22 @@ div.note > textarea {
     background: rgba(255, 255, 255, .5);
 }
 
+div.green-note {
+    background-color: #9FD364;
+}
+
+div.blue-note {
+    background-color: #5BC0DE;
+}
+
 .glyphicon-plus {
     position: fixed;
     top: 10px;
     right: 10px;
+}
+
+.column {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height:1000px;
 }
