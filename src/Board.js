@@ -34,7 +34,7 @@ export default class Board extends Component {
         // }
     }
 
-    add(text) {
+    add(text, column, pageX, pageY) {
         var arr = this.state.notes;
         // arr.push(text);
         arr.push({
@@ -42,6 +42,10 @@ export default class Board extends Component {
             note: text
         });
         this.setState({notes: arr});
+        $.ajax({ type: 'POST', url: '/notes', data: { content: text, column: column, pageX: pageX, pageY: pageY } })
+            .done(function(data) {
+                // this.setState({ helpBlock: data.message });
+            });
     }
 
     update(newText, i) {
@@ -79,20 +83,23 @@ export default class Board extends Component {
                         <div className="row">
                             <div className="col-sm-3 text-center column toDo">
                                 <h1>To Do</h1>
+                                <div>{this.state.notes.map(this.eachNote)}</div>
                             </div>
                             <div className="col-sm-3 text-center column inProgress">
                                 <h1>In Progress</h1>
+                                <div></div>
                             </div>
                             <div className="col-sm-3 text-center column Testing">
                                 <h1>Testing</h1>
+                                <div></div>
                             </div>
                             <div className="col-sm-3 text-center column Done">
                                 <h1>Done</h1>
+                                <div></div>
                             </div>
-                            {this.state.notes.map(this.eachNote)}
                         </div>
                     </div>
-                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note")}/>
+                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160)}/>
                </div>;
     }
 };
