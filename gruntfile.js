@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 
 		watch: {
 			express: {
-				files: 'src/*.js',
+				files: ['index.js', 'models/*.js', 'src/*.js'],
 				tasks: ['browserify']
 			},
 			options: {

@@ -26,7 +26,17 @@ export default class Note extends Component {
     }
 
     componentDidMount() {
-        $(ReactDOM.findDOMNode(this)).draggable();
+        var $note = $(ReactDOM.findDOMNode(this));
+        var obj = this;
+        $note.draggable({
+            stop: function() {
+                $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: $note.find('p').text(), pageX: $note.position().left,
+                                                                pageY: $note.position().top } })
+                    .done(function(data) {
+                        console.log(data);
+                    });
+            }
+        });
     }
 
     randomBetween(min, max) {
@@ -50,11 +60,23 @@ export default class Note extends Component {
         // alert(value);
         this.props.onChange(ReactDOM.findDOMNode(this.refs.newText).value, this.props.index); // trigger 'onChange' event
         this.setState({editing: false});
+        var $note = $(ReactDOM.findDOMNode(this));
+        var obj = this;
+        $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: ReactDOM.findDOMNode(this.refs.newText).value,
+                                                        pageX: $note.position().left, pageY: $note.position().top } })
+            .done(function(data) {
+                console.log(data);
+            });
     }
 
     remove() {
         // alert('removing note');
         this.props.onRemove(this.props.index); // trigger 'onRemove' event
+        var obj = this;
+        $.ajax({ type: 'DELETE', url: '/notes', data: { id: obj.props._id } })
+            .done(function(data) {
+                console.log(data);
+            });
     }
 
     renderDisplay() {

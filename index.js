@@ -43,7 +43,7 @@ app.get('/notes', function (req, res, next) {
     });
 });
 
-/* POST a new note. */
+/* Save a new note. */
 app.post('/notes', function(req, res, next) {
     var note = new Note(req.body);
 
@@ -54,6 +54,40 @@ app.post('/notes', function(req, res, next) {
 
         res.json(note);
     });
+});
+
+/* Update a note. */
+app.put('/notes', function(req, res, next) {
+	var query = Note.findById(req.body.id);
+
+    query.exec(function(err, note) {
+        if (err) {
+            return next(err);
+        }
+        if (!note) {
+            return next(new Error('can\'t find note'));
+        }
+
+		note.content = req.body.content;
+		note.pageX = req.body.pageX;
+		note.pageY = req.body.pageY;
+
+	    note.save(function(err, note) {
+	        if (err) {
+	            return next(err);
+	        }
+
+	        res.json(note);
+	    });
+    });
+});
+
+/* Delete a note. */
+app.delete('/notes', function(req, res, next) {
+	Note.findByIdAndRemove(req.body.id, function(err, obj) {
+	    if (err) next(err);
+	    res.json(200, obj);
+  	});
 });
 
 http.createServer(app).listen(port, function () {

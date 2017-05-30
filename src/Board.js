@@ -35,16 +35,17 @@ export default class Board extends Component {
     }
 
     add(text, column, pageX, pageY) {
-        var arr = this.state.notes;
-        // arr.push(text);
-        arr.push({
-            id: this.nextId(),
-            note: text
-        });
-        this.setState({notes: arr});
+        var obj = this;
         $.ajax({ type: 'POST', url: '/notes', data: { content: text, column: column, pageX: pageX, pageY: pageY } })
             .done(function(data) {
-                // this.setState({ helpBlock: data.message });
+                var arr = obj.state.notes;
+                // arr.push(text);
+                arr.push({
+                    id: obj.nextId(),
+                    note: text,
+                    _id: data._id
+                });
+                obj.setState({notes: arr});
             });
     }
 
@@ -65,6 +66,7 @@ export default class Board extends Component {
         return (
                 <Note key={note.id}
                     index={i}
+                    _id={note._id}
                     onChange={this.update}
                     onRemove={this.remove}
                 >{note.note}</Note>
@@ -81,19 +83,19 @@ export default class Board extends Component {
         return <div className="board">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-sm-3 text-center column toDo">
+                            <div className="col-sm-3 text-center column" id="toDo">
                                 <h1>To Do</h1>
                                 <div>{this.state.notes.map(this.eachNote)}</div>
                             </div>
-                            <div className="col-sm-3 text-center column inProgress">
+                            <div className="col-sm-3 text-center column" id="inProgress">
                                 <h1>In Progress</h1>
                                 <div></div>
                             </div>
-                            <div className="col-sm-3 text-center column Testing">
+                            <div className="col-sm-3 text-center column" id="Testing">
                                 <h1>Testing</h1>
                                 <div></div>
                             </div>
-                            <div className="col-sm-3 text-center column Done">
+                            <div className="col-sm-3 text-center column" id="Done">
                                 <h1>Done</h1>
                                 <div></div>
                             </div>
