@@ -10,6 +10,8 @@ export default class Note extends Component {
         this.renderDisplay = this.renderDisplay.bind(this);
         this.changeColorBlue = this.changeColorBlue.bind(this);
         this.changeColorGreen = this.changeColorGreen.bind(this);
+        this.getColor = this.getColor.bind(this);
+        this.storeNote = this.storeNote.bind(this);
         this.edit = this.edit.bind(this);
         this.remove = this.remove.bind(this);
         this.save = this.save.bind(this);
@@ -30,13 +32,17 @@ export default class Note extends Component {
         var obj = this;
         $note.draggable({
             stop: function() {
-                $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: $note.find('p').text(), pageX: $note.position().left,
-                                                                pageY: $note.position().top } })
-                    .done(function(data) {
-                        console.log(data);
-                    });
+                obj.storeNote($note, obj);
             }
         });
+    }
+
+    storeNote(note, obj) {
+        $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: note.find('p').text(), pageX: note.position().left,
+                                                        pageY: note.position().top, color: obj.getColor(note)} })
+            .done(function(data) {
+                console.log(data);
+            });
     }
 
     randomBetween(min, max) {
@@ -45,10 +51,27 @@ export default class Note extends Component {
 
     changeColorBlue() {
         $(ReactDOM.findDOMNode(this)).removeClass('green-note').toggleClass('blue-note');
+        var $note = $(ReactDOM.findDOMNode(this));
+        this.storeNote($note, this);
     }
 
     changeColorGreen() {
         $(ReactDOM.findDOMNode(this)).removeClass('blue-note').toggleClass('green-note');
+        var $note = $(ReactDOM.findDOMNode(this));
+        this.storeNote($note, this);
+    }
+
+    getColor(obj) {
+        var colors = obj.attr('class').split(/\s+/);
+        var color = null;
+        for ( var i=0; i < colors.length; i++ ) {
+            if ( colors[i].match(/-note/g) ) {
+                var res = colors[i].split("-");
+                color = res[0];
+                break;
+            }
+       }
+       return (color != null) ? color : 'yellow';
     }
 
     edit() {
@@ -63,7 +86,7 @@ export default class Note extends Component {
         var $note = $(ReactDOM.findDOMNode(this));
         var obj = this;
         $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: ReactDOM.findDOMNode(this.refs.newText).value,
-                                                        pageX: $note.position().left, pageY: $note.position().top } })
+                                                        pageX: $note.position().left, pageY: $note.position().top, color: obj.getColor($note) } })
             .done(function(data) {
                 console.log(data);
             });

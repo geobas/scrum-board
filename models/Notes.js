@@ -7,6 +7,7 @@ var NoteSchema = new mongoose.Schema({
         unique: false
     },
     // column: String,
+    color: String,
     pageX: Number,
     pageY: Number
 });

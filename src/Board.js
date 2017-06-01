@@ -34,16 +34,17 @@ export default class Board extends Component {
         // }
     }
 
-    add(text, column, pageX, pageY) {
+    add(text, column, pageX, pageY, color) {
         var obj = this;
-        $.ajax({ type: 'POST', url: '/notes', data: { content: text, column: column, pageX: pageX, pageY: pageY } })
+        $.ajax({ type: 'POST', url: '/notes', data: { content: text, column: column, pageX: pageX, pageY: pageY, color: color } })
             .done(function(data) {
                 var arr = obj.state.notes;
                 // arr.push(text);
                 arr.push({
                     id: obj.nextId(),
                     note: text,
-                    _id: data._id
+                    _id: data._id,
+                    color: color
                 });
                 obj.setState({notes: arr});
             });
@@ -85,7 +86,6 @@ export default class Board extends Component {
                         <div className="row">
                             <div className="col-sm-3 text-center column" id="toDo">
                                 <h1>To Do</h1>
-                                <div>{this.state.notes.map(this.eachNote)}</div>
                             </div>
                             <div className="col-sm-3 text-center column" id="inProgress">
                                 <h1>In Progress</h1>
@@ -99,9 +99,10 @@ export default class Board extends Component {
                                 <h1>Done</h1>
                                 <div></div>
                             </div>
+                            <div>{this.state.notes.map(this.eachNote)}</div>
                         </div>
                     </div>
-                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160)}/>
+                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160, 'yellow')}/>
                </div>;
     }
 };

@@ -71,6 +71,7 @@ app.put('/notes', function(req, res, next) {
 		note.content = req.body.content;
 		note.pageX = req.body.pageX;
 		note.pageY = req.body.pageY;
+		note.color = req.body.color;
 
 	    note.save(function(err, note) {
 	        if (err) {
