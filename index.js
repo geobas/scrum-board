@@ -39,7 +39,7 @@ app.get('/notes', function (req, res, next) {
             return next(err);
         }
 
-        res.json(notes);
+        res.status(200).json(notes);
     });
 });
 
@@ -52,7 +52,7 @@ app.post('/notes', function(req, res, next) {
             return next(err);
         }
 
-        res.json(note);
+        res.status(200).json(note);
     });
 });
 
@@ -78,7 +78,7 @@ app.put('/notes', function(req, res, next) {
 	            return next(err);
 	        }
 
-	        res.json(note);
+	        res.status(200).json(note);
 	    });
     });
 });
@@ -87,7 +87,7 @@ app.put('/notes', function(req, res, next) {
 app.delete('/notes', function(req, res, next) {
 	Note.findByIdAndRemove(req.body.id, function(err, obj) {
 	    if (err) next(err);
-	    res.json(200, obj);
+	    res.status(200).json(obj);
   	});
 });
 

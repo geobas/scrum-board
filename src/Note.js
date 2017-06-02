@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 
 export default class Note extends Component {
     constructor(props) {
@@ -19,30 +20,30 @@ export default class Note extends Component {
 
     componentWillMount() {
         this.style = {
-            // right: this.randomBetween(0, window.innerWidth - 150) + 'px',
-            // top: this.randomBetween(0, window.innerHeight - 150) + 'px',
-            left : '60px',
-            top: '160px',
+            left: this.props.pageX + 'px',
+            top: this.props.pageY + 'px',
             transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
         };
     }
 
     componentDidMount() {
         var $note = $(ReactDOM.findDOMNode(this));
-        var obj = this;
+        var self = this;
         $note.draggable({
             stop: function() {
-                obj.storeNote($note, obj);
+                self.storeNote($note, self);
             }
         });
     }
 
-    storeNote(note, obj) {
-        $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: note.find('p').text(), pageX: note.position().left,
-                                                        pageY: note.position().top, color: obj.getColor(note)} })
+    storeNote(note, self) {
+        $.ajax({
+            type: 'PUT',
+            url: '/notes',
+            data: { id: self.props._id, content: note.find('p').text(), pageX: note.position().left, pageY: note.position().top, color: self.getColor(note) } })
             .done(function(data) {
                 console.log(data);
-            });
+        });
     }
 
     randomBetween(min, max) {
@@ -61,16 +62,19 @@ export default class Note extends Component {
         this.storeNote($note, this);
     }
 
-    getColor(obj) {
-        var colors = obj.attr('class').split(/\s+/);
+    getColor(self) {
+        var colors = self.attr('class').split(/\s+/);
         var color = null;
-        for ( var i=0; i < colors.length; i++ ) {
+        var length = colors.length;
+        for ( var i=0; i < length; i++ ) {
             if ( colors[i].match(/-note/g) ) {
                 var res = colors[i].split("-");
                 color = res[0];
                 break;
             }
        }
+       console.log(colors);
+       console.log(color);
        return (color != null) ? color : 'yellow';
     }
 
@@ -79,35 +83,32 @@ export default class Note extends Component {
     }
 
     save() {
-        // var value = this.refs.newText.getDOMNode().value;
-        // alert(value);
         this.props.onChange(ReactDOM.findDOMNode(this.refs.newText).value, this.props.index); // trigger 'onChange' event
         this.setState({editing: false});
         var $note = $(ReactDOM.findDOMNode(this));
-        var obj = this;
-        $.ajax({ type: 'PUT', url: '/notes', data: { id: obj.props._id, content: ReactDOM.findDOMNode(this.refs.newText).value,
-                                                        pageX: $note.position().left, pageY: $note.position().top, color: obj.getColor($note) } })
+        var self = this;
+        $.ajax({ type: 'PUT', url: '/notes', data: { id: self.props._id, content: ReactDOM.findDOMNode(this.refs.newText).value,
+                                                        pageX: $note.position().left, pageY: $note.position().top, color: self.getColor($note) } })
             .done(function(data) {
                 console.log(data);
             });
     }
 
     remove() {
-        // alert('removing note');
         this.props.onRemove(this.props.index); // trigger 'onRemove' event
-        var obj = this;
-        $.ajax({ type: 'DELETE', url: '/notes', data: { id: obj.props._id } })
+        var self = this;
+        $.ajax({ type: 'DELETE', url: '/notes', data: { id: self.props._id } })
             .done(function(data) {
                 console.log(data);
             });
     }
 
     renderDisplay() {
-        return <div className="note" style={this.style}>
+        return <div className={ classNames('note', this.props.color + '-note') } style={this.style}>
                 <p>{this.props.children}</p>
                 <span>
-                    <button onClick={this.changeColorBlue} className="btn btn-info glyphicon glyphicon-text-background change-color-blue" />
-                    <button onClick={this.changeColorGreen} className="btn btn-success glyphicon glyphicon-text-background change-color-green" />
+                    <button onClick={this.changeColorBlue} className="btn btn-info glyphicon glyphicon-text-background" />
+                    <button onClick={this.changeColorGreen} className="btn btn-success glyphicon glyphicon-text-background" />
                     <button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil edit" />
                     <button onClick={this.remove} className="btn btn-danger glyphicon glyphicon-trash remove" />
                 </span>

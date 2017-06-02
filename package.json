@@ -46,7 +46,8 @@
         "jquery-browserify": "~1.8.1",
         "jquery-ui-browserify": "~1.11.0-pre-seelio",
         "grunt-express-server": "~0.5.3",
-        "body-parser": "~1.17.2"
+        "body-parser": "~1.17.2",
+        "classnames": "~2.2.5"
     },
     "dependencies": {
         "react": "15.4.1",

@@ -5,12 +5,9 @@ export default class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [
-                // {id:1 , note:"Note 1"},
-                // {id:2 , note:"Note 2"},
-                // {id:3 , note:"Note 3"}
-            ]
+            notes: []
         };
+        this.show = this.show.bind(this);
         this.add = this.add.bind(this);
         this.update = this.update.bind(this);
         this.remove = this.remove.bind(this);
@@ -23,36 +20,54 @@ export default class Board extends Component {
     }
 
     componentWillMount() {
-        // var self = this;
-        // if (this.props.count > 0) {
-        //     $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" +
-        //         this.props.count + "&start-with-lorem=1&callback=?", function(results) {
-        //             results[0].split('. ').forEach(function(sentence){
-        //                 self.add(sentence.substring(0,40));
-        //             });
-        //         });
-        // }
+        var self = this;
+        if (this.props.count > 0) {
+            $.ajax({
+                type: 'GET',
+                url: '/notes'})
+                .done(function(data) {
+                    data.forEach(function(note){
+                        self.show(note);
+                    });
+                });
+        }
+    }
+
+    show(obj) {
+        var arr = this.state.notes;
+        arr.push({
+            id: this.nextId(),
+            note: obj.content,
+            _id: obj._id,
+            pageX: obj.pageX,
+            pageY: obj.pageY,
+            color: obj.color
+        });
+        this.setState({notes: arr});
     }
 
     add(text, column, pageX, pageY, color) {
-        var obj = this;
-        $.ajax({ type: 'POST', url: '/notes', data: { content: text, column: column, pageX: pageX, pageY: pageY, color: color } })
+        var self = this;
+        $.ajax({
+            type: 'POST',
+            url: '/notes',
+            data: { content: text, column: column, pageX: pageX, pageY: pageY, color: color } })
             .done(function(data) {
-                var arr = obj.state.notes;
-                // arr.push(text);
+                var arr = self.state.notes;
                 arr.push({
-                    id: obj.nextId(),
+                    id: self.nextId(),
                     note: text,
                     _id: data._id,
+                    pageX: pageX,
+                    pageY: pageY,
                     color: color
                 });
-                obj.setState({notes: arr});
+                self.setState({notes: arr});
             });
     }
 
     update(newText, i) {
         var arr = this.state.notes;
-        // arr[i] = newText;
         arr[i].note = newText;
         this.setState({notes:arr});
     }
@@ -68,6 +83,9 @@ export default class Board extends Component {
                 <Note key={note.id}
                     index={i}
                     _id={note._id}
+                    pageX={note.pageX}
+                    pageY={note.pageY}
+                    color={note.color}
                     onChange={this.update}
                     onRemove={this.remove}
                 >{note.note}</Note>
@@ -75,12 +93,6 @@ export default class Board extends Component {
     }
 
     render() {
-        // return <div className="board">{this.props.count}</div>
-        // return <div className="board">
-        //             {this.state.notes.map(function(note, i) {
-        //                 return <window.Note key={i}>{note}</window.Note>
-        //             })}
-        //        </div>;
         return <div className="board">
                     <div className="container-fluid">
                         <div className="row">
