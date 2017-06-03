@@ -24,6 +24,7 @@ export default class Note extends Component {
             top: this.props.pageY + 'px',
             transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
         };
+        this.color = ( this.props.color != '' ) ? this.props.color + '-note' : '';
     }
 
     componentDidMount() {
@@ -73,9 +74,7 @@ export default class Note extends Component {
                 break;
             }
        }
-       console.log(colors);
-       console.log(color);
-       return (color != null) ? color : 'yellow';
+       return (color != null) ? color : '';
     }
 
     edit() {
@@ -104,7 +103,7 @@ export default class Note extends Component {
     }
 
     renderDisplay() {
-        return <div className={ classNames('note', this.props.color + '-note') } style={this.style}>
+        return <div className={ classNames('note', this.color) } style={this.style}>
                 <p>{this.props.children}</p>
                 <span>
                     <button onClick={this.changeColorBlue} className="btn btn-info glyphicon glyphicon-text-background" />
@@ -116,7 +115,7 @@ export default class Note extends Component {
     }
 
     renderForm() {
-        return <div className="note" style={this.style}>
+        return <div className={ classNames('note', this.color) } style={this.style}>
                 <textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
                 <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk save" />
             </div>;

@@ -32,7 +32,7 @@ div.board .container-fluid {
 }
 
 div.note {
-    height: 180px;
+    min-height: 180px;
     width: 180px;
     background-color: yellow;
     margin: 2px 0;
@@ -51,6 +51,8 @@ div.note p {
     font-size: 22px;
     padding: 5px;
     font-family: "Shadows Into Light", Arial;
+    word-wrap: break-word;
+    white-space: pre-line;
 }
 
 div.note:hover {

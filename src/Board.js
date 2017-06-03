@@ -14,11 +14,6 @@ export default class Board extends Component {
         this.eachNote = this.eachNote.bind(this);
     }
 
-    nextId() {
-        this.uniqueId = this.uniqueId || 0;
-        return this.uniqueId++;
-    }
-
     componentWillMount() {
         var self = this;
         if (this.props.count > 0) {
@@ -31,6 +26,11 @@ export default class Board extends Component {
                     });
                 });
         }
+    }
+
+    nextId() {
+        this.uniqueId = this.uniqueId || 0;
+        return this.uniqueId++;
     }
 
     show(obj) {
@@ -114,7 +114,7 @@ export default class Board extends Component {
                             <div>{this.state.notes.map(this.eachNote)}</div>
                         </div>
                     </div>
-                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160, 'yellow')}/>
+                    <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160, "")}/>
                </div>;
     }
 };
