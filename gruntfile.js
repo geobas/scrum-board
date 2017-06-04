@@ -21,16 +21,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		watch: {
-			express: {
-				files: ['index.js', 'models/*.js', 'src/*.js'],
-				tasks: ['browserify']
-			},
-			options: {
-				livereload: true
-			}
-		},
-
 		targethtml: {
 			dev: {
 				files: {
@@ -49,39 +39,57 @@ module.exports = function(grunt) {
 			}
 		},
 
-		express: {
-			options: {
-				port: 3001,
-			},
+		concurrent: {
 			dev: {
+				tasks: ['nodemon', 'watch'],
 				options: {
-					script: 'index.js'
+					logConcurrentOutput: true
 				}
-			},
-			prod: {
-				options: {
-					script: 'path/to/prod/server.js',
-					node_env: 'production'
-				}
-			},
+			}
 		},
 
-		browserSync: {
-			default_options: {
-				bsFiles: {
-					src: [
-						"build/app.built.js"
-					]
-				},
+		nodemon: {
+			dev: {
+				script: 'index.js',
 				options: {
-					open: true,
-					port: 3001,
-					browser: [
-							"/usr/bin/firefox",
-					],
-					watchTask: true,
-					proxy: "http://localhost:3001/react_sandbox/board_dev.htm"
+					env: {
+						PORT: '3001'
+					},
+
+					// omit this property if you aren't serving HTML files and
+					// don't want to open a browser tab on start
+					callback: function (nodemon) {
+						nodemon.on('log', function (event) {
+							console.log(event.colour);
+						});
+
+						// opens browser on initial server start
+						nodemon.on('config:update', function () {
+							// Delay before server listens on port
+							setTimeout(function() {
+								require('open')('http://localhost:3001', 'firefox');
+							}, 1000);
+						});
+
+						// refreshes browser when server reboots
+						nodemon.on('restart', function () {
+							// Delay before server listens on port
+							setTimeout(function() {
+								require('fs').writeFileSync('.rebooted', 'rebooted');
+							}, 7000);
+						});
+					}
 				}
+			}
+		},
+
+		watch: {
+			express: {
+				files: ['index.js', 'models/*.js', 'src/*.js', '.rebooted'],
+				tasks: ['browserify']
+			},
+			options: {
+				livereload: true
 			}
 		}
 
@@ -90,13 +98,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-targethtml');
-	grunt.loadNpmTasks('grunt-browser-sync');
 	grunt.loadNpmTasks('grunt-available-tasks');
-	grunt.loadNpmTasks('grunt-express-server');
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-contrib-nodemon');
 
 	grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
 	grunt.registerTask('build:prod', ['browserify', 'targethtml:prod']);
 	grunt.registerTask('heroku', ['browserify', 'targethtml:heroku']);
 	grunt.registerTask('list', ['availabletasks']);
-	grunt.registerTask('default', ['express:dev', 'watch']);
+	grunt.registerTask('default', ['concurrent:dev']);
 };

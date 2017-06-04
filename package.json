@@ -22,16 +22,17 @@
         "board"
     ],
     "devDependencies": {
-        "grunt": "~0.4.2",
+        "grunt": "~1.0.1",
         "grunt-cli": "~0.1.11",
         "grunt-browserify": "latest",
-        "grunt-contrib-watch": "~0.6.1",
+        "grunt-contrib-watch": "~1.0.0",
         "babelify": "latest",
         "babel-preset-react": "latest",
         "babel-preset-es2015": "latest",
         "grunt-targethtml": "~0.2.6",
-        "grunt-browser-sync": "~2.2.0",
         "grunt-available-tasks": "~0.6.3",
+        "grunt-concurrent": "~2.3.1",
+        "grunt-contrib-nodemon": "~0.5.4",
         "karma": "^0.13.22",
         "karma-chrome-launcher": "^0.1.10",
         "karma-firefox-launcher": "~1.0.0",
@@ -45,9 +46,11 @@
         "jquery": "~1.11.1",
         "jquery-browserify": "~1.8.1",
         "jquery-ui-browserify": "~1.11.0-pre-seelio",
-        "grunt-express-server": "~0.5.3",
         "body-parser": "~1.17.2",
-        "classnames": "~2.2.5"
+        "classnames": "~2.2.5",
+        "nodemon": "~1.11.0",
+        "open": "~0.0.5",
+        "fs": "~0.0.1-security"
     },
     "dependencies": {
         "react": "15.4.1",
