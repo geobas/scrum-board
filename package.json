@@ -1,7 +1,7 @@
 {
-    "name": "bulletin-board",
+    "name": "scrum-board",
     "version": "1.0.0",
-    "description": "A React application",
+    "description": "A Scrum Board application",
     "main": "App.js",
     "scripts": {
         "postinstall": "grunt heroku",
@@ -10,15 +10,15 @@
     },
     "author": "Geo Bas",
     "license": "MIT",
-    "homepage": "https://github.com/geobas/react-sandbox/tree/ES6+browserify",
+    "homepage": "https://github.com/geobas/react-sandbox/tree/scrum-board",
     "repository": {
         "type": "git",
-        "url": "https://github.com/geobas/react-sandbox/tree/ES6+browserify"
+        "url": "https://github.com/geobas/react-sandbox/tree/scrum-board"
     },
     "keywords": [
         "react",
         "javascript",
-        "bulletin",
+        "scrum",
         "board"
     ],
     "devDependencies": {
@@ -33,6 +33,7 @@
         "grunt-available-tasks": "~0.6.3",
         "grunt-concurrent": "~2.3.1",
         "grunt-contrib-nodemon": "~0.5.4",
+        "grunt-contrib-uglify": "~3.0.1",
         "karma": "^0.13.22",
         "karma-chrome-launcher": "^0.1.10",
         "karma-firefox-launcher": "~1.0.0",

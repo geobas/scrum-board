@@ -34,7 +34,18 @@ module.exports = function(grunt) {
 			},
 			heroku: {
 				files: {
-					'index.html': 'src/board.htm',
+					'index.htm': 'src/board.htm',
+				}
+			}
+		},
+
+		uglify: {
+			options: {
+				banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
+			},
+			build: {
+				files: {
+					'build/app.built.min.js': 'build/app.built.js'
 				}
 			}
 		},
@@ -52,8 +63,10 @@ module.exports = function(grunt) {
 			dev: {
 				script: 'index.js',
 				options: {
+					// environment variables required by the NODE application
 					env: {
-						PORT: '3001'
+						PORT: '3001',
+						NODE_ENV: "dev"
 					},
 
 					// omit this property if you aren't serving HTML files and
@@ -101,9 +114,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-available-tasks');
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-contrib-nodemon');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
-	grunt.registerTask('build:prod', ['browserify', 'targethtml:prod']);
+	grunt.registerTask('build:prod', ['browserify', 'uglify', 'targethtml:prod']);
 	grunt.registerTask('heroku', ['browserify', 'targethtml:heroku']);
 	grunt.registerTask('list', ['availabletasks']);
 	grunt.registerTask('default', ['concurrent:dev']);
