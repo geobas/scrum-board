@@ -15,10 +15,10 @@ var port = process.env.PORT || '3001';
 var entry_file = null;
 if ( process.env.NODE_ENV == 'dev' )
     entry_file = 'board_dev.htm';
+else if ( process.env.NODE_ENV == 'prod' )
+    entry_file = 'board.htm';
 else if ( process.env.NODE_ENV == 'heroku' )
     entry_file = 'index.htm';
-else
-    entry_file = 'board.htm';
 
 app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname + '/' + entry_file));

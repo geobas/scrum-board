@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 
 		concurrent: {
 			dev: {
-				tasks: ['nodemon', 'watch'],
+				tasks: ['nodemon:dev', 'watch'],
 				options: {
 					logConcurrentOutput: true
 				}
@@ -60,6 +60,34 @@ module.exports = function(grunt) {
 		},
 
 		nodemon: {
+			prod: {
+				script: 'index.js',
+				options: {
+					// environment variables required by the NODE application
+					env: {
+						PORT: '3001',
+						NODE_ENV: "prod"
+					},
+
+					watch:false,
+
+					// omit this property if you aren't serving HTML files and
+					// don't want to open a browser tab on start
+					callback: function (nodemon) {
+						nodemon.on('log', function (event) {
+							console.log(event.colour);
+						});
+
+						// opens browser on initial server start
+						nodemon.on('config:update', function () {
+							// Delay before server listens on port
+							setTimeout(function() {
+								require('open')('http://localhost:3001', 'firefox');
+							}, 1000);
+						});
+					}
+				}
+			},
 			dev: {
 				script: 'index.js',
 				options: {
@@ -85,12 +113,12 @@ module.exports = function(grunt) {
 						});
 
 						// refreshes browser when server reboots
-						nodemon.on('restart', function () {
-							// Delay before server listens on port
-							setTimeout(function() {
-								require('fs').writeFileSync('.rebooted', 'rebooted');
-							}, 7000);
-						});
+						// nodemon.on('restart', function () {
+						// 	// Delay before server listens on port
+						// 	setTimeout(function() {
+						// 		require('fs').writeFileSync('.rebooted', 'rebooted');
+						// 	}, 7000);
+						// });
 					}
 				}
 			}
@@ -120,5 +148,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:prod', ['browserify', 'uglify', 'targethtml:prod']);
 	grunt.registerTask('heroku', ['browserify', 'targethtml:heroku']);
 	grunt.registerTask('list', ['availabletasks']);
-	grunt.registerTask('default', ['concurrent:dev']);
+	grunt.registerTask('run:dev', ['concurrent:dev']);
+	grunt.registerTask('run:prod', ['nodemon:prod']);
+	// grunt.registerTask('default', ['concurrent:dev']);
 };
