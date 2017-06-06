@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 			},
 			heroku: {
 				files: {
-					'index.htm': 'src/board.htm',
+					'index.html': 'src/board.htm',
 				}
 			}
 		},
