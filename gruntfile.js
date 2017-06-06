@@ -146,7 +146,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build:dev', ['browserify', 'targethtml:dev']);
 	grunt.registerTask('build:prod', ['browserify', 'uglify', 'targethtml:prod']);
-	grunt.registerTask('heroku', ['browserify', 'targethtml:heroku']);
+	grunt.registerTask('heroku', ['browserify', 'uglify', 'targethtml:heroku']);
 	grunt.registerTask('list', ['availabletasks']);
 	grunt.registerTask('run:dev', ['concurrent:dev']);
 	grunt.registerTask('run:prod', ['nodemon:prod']);
