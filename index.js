@@ -17,8 +17,8 @@ if ( process.env.NODE_ENV == 'dev' )
     entry_file = 'board_dev.htm';
 else if ( process.env.NODE_ENV == 'prod' )
     entry_file = 'board.htm';
-else if ( process.env.NODE_ENV == 'heroku' )
-    entry_file = 'index.htm';
+else if ( process.env.NODE_ENV == 'production' )
+    entry_file = 'index.html';
 
 app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname + '/' + entry_file));
