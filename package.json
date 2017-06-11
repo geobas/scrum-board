@@ -57,6 +57,7 @@
         "jquery-browserify": "~1.8.1",
         "jquery-ui-browserify": "~1.11.0-pre-seelio",
         "body-parser": "~1.17.2",
-        "classnames": "~2.2.5"
+        "classnames": "~2.2.5",
+        "alt": "0.18.6"
     }
 }

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import Note from './Note';
+import NoteDAO from './NoteDAO';
 
 export default class Board extends Component {
     constructor(props) {
@@ -17,14 +18,7 @@ export default class Board extends Component {
     componentWillMount() {
         var self = this;
         if (this.props.count > 0) {
-            $.ajax({
-                type: 'GET',
-                url: '/notes'})
-                .done(function(data) {
-                    data.forEach(function(note){
-                        self.show(note);
-                    });
-                });
+            NoteDAO.getNotes(self);
         }
     }
 
@@ -47,23 +41,7 @@ export default class Board extends Component {
     }
 
     add(text, column, pageX, pageY, color) {
-        var self = this;
-        $.ajax({
-            type: 'POST',
-            url: '/notes',
-            data: { content: text, column: column, pageX: pageX, pageY: pageY, color: color } })
-            .done(function(data) {
-                var arr = self.state.notes;
-                arr.push({
-                    id: self.nextId(),
-                    note: text,
-                    _id: data._id,
-                    pageX: pageX,
-                    pageY: pageY,
-                    color: color
-                });
-                self.setState({notes: arr});
-            });
+        NoteDAO.addNote(this, text, column, pageX, pageY, color);
     }
 
     update(newText, i) {
