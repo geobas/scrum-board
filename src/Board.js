@@ -16,9 +16,8 @@ export default class Board extends Component {
     }
 
     componentWillMount() {
-        var self = this;
         if (this.props.count > 0) {
-            NoteDAO.getNotes(self);
+            NoteDAO.getNotes(this);
         }
     }
 
@@ -95,15 +94,11 @@ export default class Board extends Component {
                     <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160, "")}/>
                </div>;
     }
-};
+}
 
 Board.propTypes = {
     count: function(props, propName) {
-        if (typeof props[propName] !== "number"){
-            return new Error('The count property must be a number');
-        }
-        if (props[propName] > 100) {
-            return new Error("Creating " + props[propName] + " notes is ridiculous");
-        }
+        if ( typeof props[propName] !== "number" ) return new Error('The count property must be a number');
+        if ( props[propName] > 100 ) return new Error("Creating " + props[propName] + " notes is ridiculous");
     }
-};
+}

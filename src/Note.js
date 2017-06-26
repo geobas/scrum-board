@@ -81,10 +81,12 @@ export default class Note extends Component {
 	update() {
 		this.props.onChange(ReactDOM.findDOMNode(this.refs.newText).value, this.props.index); // trigger 'onChange' event
 		this.setState({editing: false});
-		var $note = this.getNoteDOMObject();
-		var self = this;
-		$.ajax({ type: 'PUT', url: '/notes', data: { id: self.props._id, content: ReactDOM.findDOMNode(this.refs.newText).value,
-														pageX: $note.position().left, pageY: $note.position().top, color: self.getColor($note) } })
+		$.ajax({
+			context: this,
+			type: 'PUT',
+			url: '/notes',
+			data: { id: this.props._id, content: ReactDOM.findDOMNode(this.refs.newText).value, pageX: this.getNoteDOMObject().position().left,
+					pageY: this.getNoteDOMObject().position().top, color: this.getColor(this.getNoteDOMObject()) } })
 			.done(function(data) {
 				console.log(data);
 			});
@@ -122,4 +124,4 @@ export default class Note extends Component {
 			return this.renderDisplay();
 		}
 	}
-};
+}
