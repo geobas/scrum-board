@@ -17,6 +17,7 @@ export default class Note extends Component {
 		this.edit = this.edit.bind(this);
 		this.remove = this.remove.bind(this);
 		this.update = this.update.bind(this);
+		this.NoteDAO = new NoteDAO();
 	}
 
 	componentWillMount() {
@@ -43,7 +44,7 @@ export default class Note extends Component {
 	}
 
 	storeNote(note) {
-		NoteDAO.updateNote(this.props._id, note.find('p').text(), note.position().left, note.position().top, this.getColor(note));
+		this.NoteDAO.updateNote(this.props._id, note.find('p').text(), note.position().left, note.position().top, this.getColor(note));
 	}
 
 	randomBetween(min, max) {
@@ -94,11 +95,12 @@ export default class Note extends Component {
 
 	remove() {
 		this.props.onRemove(this.props.index); // trigger 'onRemove' event
-		NoteDAO.removeNote(this.props._id);
+		this.NoteDAO.removeNote(this.props._id);
 	}
 
 	renderDisplay() {
-		return <div className={ classNames('note', this.color) } style={this.style}>
+		return (
+			<div className={ classNames('note', this.color) } style={this.style}>
 				<p>{this.props.children}</p>
 				<span>
 					<button onClick={this.changeColorBlue} className="btn btn-info glyphicon glyphicon-text-background" />
@@ -106,14 +108,17 @@ export default class Note extends Component {
 					<button onClick={this.edit} className="btn btn-primary glyphicon glyphicon-pencil edit" />
 					<button onClick={this.remove} className="btn btn-danger glyphicon glyphicon-trash remove" />
 				</span>
-			</div>;
+			</div>
+		)
 	}
 
 	renderForm() {
-		return <div className={ classNames('note', this.color) } style={this.style}>
+		return (
+			<div className={ classNames('note', this.color) } style={this.style}>
 				<textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
 				<button onClick={this.update} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk update" />
-			</div>;
+			</div>
+		)
 	}
 
 	render() {

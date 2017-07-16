@@ -13,11 +13,12 @@ export default class Board extends Component {
         this.update = this.update.bind(this);
         this.remove = this.remove.bind(this);
         this.eachNote = this.eachNote.bind(this);
+        this.NoteDAO = new NoteDAO();
     }
 
     componentWillMount() {
         if (this.props.count > 0) {
-            NoteDAO.getNotes(this);
+            this.NoteDAO.getNotes(this);
         }
     }
 
@@ -40,7 +41,7 @@ export default class Board extends Component {
     }
 
     add(text, column, pageX, pageY, color) {
-        NoteDAO.addNote(this, text, column, pageX, pageY, color);
+        this.NoteDAO.addNote(this, text, column, pageX, pageY, color);
     }
 
     update(newText, i) {
@@ -70,7 +71,8 @@ export default class Board extends Component {
     }
 
     render() {
-        return <div className="board">
+        return (
+            <div className="board">
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-3 text-center column" id="toDo">
@@ -92,7 +94,8 @@ export default class Board extends Component {
                         </div>
                     </div>
                     <button className="btn btn-sm btn-success glyphicon glyphicon-plus add" onClick={this.add.bind("null", "New Note", "toDo", 60,160, "")}/>
-               </div>;
+               </div>
+        )
     }
 }
 

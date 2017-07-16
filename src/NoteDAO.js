@@ -1,6 +1,4 @@
-import alt from './alt';
-
-class NoteDAO {
+export default class NoteDAO {
 
 	getNotes(self) {
         $.ajax({
@@ -53,5 +51,3 @@ class NoteDAO {
 	}
 
 }
-
-export default alt.createActions(NoteDAO);
