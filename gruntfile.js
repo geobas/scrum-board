@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
 		browserify: {
 			options: {
-				transform: [ ["babelify", { presets: ["es2015", "react"] }] ]
+				transform: [ ["babelify", { presets: ["@babel/env", "@babel/react"] }] ]
 			},
 			dist: {
 				files: {
